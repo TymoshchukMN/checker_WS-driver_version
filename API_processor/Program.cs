@@ -12,7 +12,6 @@ namespace API_processor
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddAuthorization();
 
             var app = builder.Build();
@@ -33,13 +32,30 @@ namespace API_processor
                 tempString.Append($"{rawData.ComputerName};");
                 tempString.Append($"{rawData.CkeckDate};");
                 tempString.Append($"{rawData.²sFileWxists};");
-                tempString.AppendLine($"{rawData.FileVersion};");
-
+                tempString.Append($"{rawData.FileVersion};");
                 await _semaphore.WaitAsync();
 
                 try
                 {
-                    await File.AppendAllTextAsync(filePath, tempString.ToString());
+                    var lines = await File.ReadAllLinesAsync(filePath);
+
+                    var wSwersionDatas = lines.ToList();
+
+                    var row = wSwersionDatas.Where(s => s.StartsWith($"{rawData.ComputerName};")).FirstOrDefault();
+
+                    if (row != null)
+                    {
+                        var index = wSwersionDatas.IndexOf(row);
+
+                        wSwersionDatas[index] = tempString.ToString();
+
+                        await File.WriteAllLinesAsync(filePath, wSwersionDatas);
+                    }
+                    else
+                    {
+                        await File.AppendAllTextAsync(filePath, tempString.ToString());
+                        Console.WriteLine("nema");
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\DataFromPCs.txt" />
     <None Remove="Data\logs.txt" />
   </ItemGroup>
 
@@ -19,9 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\DataFromPCs.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
