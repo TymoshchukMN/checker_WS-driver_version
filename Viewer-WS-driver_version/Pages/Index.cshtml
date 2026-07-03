@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = null;
+}
+
+<script type="importmap"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/Viewer_WS_driver_version.styles.css" asp-append-version="true" />
+
+
+<h4 style="margin: 10px;">WS driver versions Dashboard</h4>
+<div style="margin: 10px;">
+
+    <table class="base-table">
+        <thead >
+            <tr>
+                <th>PcName</th>
+                <th>IsFileExists</th>
+                <th>checkDate</th>
+                <th>fileVersion</th>
+            </tr>
+            <tr>
+                <th><input type="text" name="pcName" value="" /></th>
+                <th>
+                    <select>
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </th>
+                <th></th>
+                <th><input type="text" name="pcName" value="" /></th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WSwersionDatas)
+            {
+                <tr>
+                    <td>@item.ComputerName</td>
+                    <td>@item.IsFileExists</td>
+                    <td>@item.CheckDate</td>
+                    <td>@item.FileVersion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
