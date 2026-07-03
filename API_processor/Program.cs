@@ -1,6 +1,7 @@
 using System.Text;
 using API_processor.Classes;
 using API_processor.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_processor
 {
@@ -14,64 +15,46 @@ namespace API_processor
 
             builder.Services.AddAuthorization();
 
+            builder.Services.AddDbContext<VersionsContext>(options =>
+                options.UseSqlite("Data Source=WSVersions.db"));
+
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<VersionsContext>();
+                db.Database.EnsureCreated();
+            }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-            app.MapPost("/add", async (WSwersionData rawData) =>
+            app.MapPut("/add", async (WSwersionData rawData, VersionsContext db) =>
             {
-                var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
-
-                Directory.CreateDirectory(uploadDirectory);
-
-                var filePath = Path.Combine(uploadDirectory, "DataFromPCs.txt");
-
-                StringBuilder tempString = new ();
-                tempString.Append($"{rawData.ComputerName};");
-                tempString.Append($"{rawData.CkeckDate};");
-                tempString.Append($"{rawData.IsFileExists};");
-                tempString.Append($"{rawData.FileVersion};");
-
-                await _semaphore.WaitAsync();
-
                 try
                 {
-                    if (!File.Exists(filePath))
+                    var pc = await db.WSwersionDatas.FindAsync(rawData.ComputerName);
+
+                    if (pc is null)
                     {
-                        File.Create(filePath).Close();
-                        await File.AppendAllTextAsync(filePath, tempString.ToString());
+                        db.WSwersionDatas.Add(rawData);
                     }
                     else
                     {
-                        var lines = await File.ReadAllLinesAsync(filePath);
-
-                        var wSwersionDatas = lines.ToList();
-
-                        var row = wSwersionDatas.Where(s => s.StartsWith($"{rawData.ComputerName};")).FirstOrDefault();
-
-                        if (row != null)
-                        {
-                            var index = wSwersionDatas.IndexOf(row);
-
-                            wSwersionDatas[index] = tempString.ToString();
-
-                            await File.WriteAllLinesAsync(filePath, wSwersionDatas);
-                        }
-                        else
-                        {
-                            await File.AppendAllTextAsync(filePath, tempString.ToString());
-                        }
+                        pc.CkeckDate = rawData.CkeckDate;
+                        pc.FileVersion = rawData.FileVersion;
+                        pc.IsFileExists = rawData.IsFileExists;
                     }
+
+                    await db.SaveChangesAsync();
+
+                    return Results.Ok();
                 }
                 catch (Exception ex)
                 {
-                    Logger.AddLogAsync(DateTime.Now, ex.Message, rawData.ComputerName);
-                }
-                finally
-                {
-                    _semaphore.Release();
+                    Console.WriteLine($"{ex.Message}");
+                    return Results.Problem(ex.Message);
                 }
             });
 

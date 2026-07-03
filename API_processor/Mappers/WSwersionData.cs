@@ -1,10 +1,13 @@
-﻿namespace API_processor.Mappers
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_processor.Mappers
 {
     public class WSwersionData
     {
         /// <summary>
         /// Gets or sets a value indicating ComputerName.
         /// </summary>
+        [Key]
         required public string ComputerName { get; set; }
 
         /// <summary>
