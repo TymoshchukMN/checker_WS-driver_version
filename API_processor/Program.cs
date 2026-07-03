@@ -31,30 +31,38 @@ namespace API_processor
                 StringBuilder tempString = new ();
                 tempString.Append($"{rawData.ComputerName};");
                 tempString.Append($"{rawData.CkeckDate};");
-                tempString.Append($"{rawData.²sFileWxists};");
+                tempString.Append($"{rawData.IsFileExists};");
                 tempString.Append($"{rawData.FileVersion};");
+
                 await _semaphore.WaitAsync();
 
                 try
                 {
-                    var lines = await File.ReadAllLinesAsync(filePath);
-
-                    var wSwersionDatas = lines.ToList();
-
-                    var row = wSwersionDatas.Where(s => s.StartsWith($"{rawData.ComputerName};")).FirstOrDefault();
-
-                    if (row != null)
+                    if (!File.Exists(filePath))
                     {
-                        var index = wSwersionDatas.IndexOf(row);
-
-                        wSwersionDatas[index] = tempString.ToString();
-
-                        await File.WriteAllLinesAsync(filePath, wSwersionDatas);
+                        File.Create(filePath).Close();
+                        await File.AppendAllTextAsync(filePath, tempString.ToString());
                     }
                     else
                     {
-                        await File.AppendAllTextAsync(filePath, tempString.ToString());
-                        Console.WriteLine("nema");
+                        var lines = await File.ReadAllLinesAsync(filePath);
+
+                        var wSwersionDatas = lines.ToList();
+
+                        var row = wSwersionDatas.Where(s => s.StartsWith($"{rawData.ComputerName};")).FirstOrDefault();
+
+                        if (row != null)
+                        {
+                            var index = wSwersionDatas.IndexOf(row);
+
+                            wSwersionDatas[index] = tempString.ToString();
+
+                            await File.WriteAllLinesAsync(filePath, wSwersionDatas);
+                        }
+                        else
+                        {
+                            await File.AppendAllTextAsync(filePath, tempString.ToString());
+                        }
                     }
                 }
                 catch (Exception ex)

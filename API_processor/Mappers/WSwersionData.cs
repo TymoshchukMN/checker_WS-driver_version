@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets or sets a value indicating whether if file exists.
         /// </summary>
-        public bool ІsFileWxists { get; set; }
+        public bool IsFileExists { get; set; }
 
         /// <summary>
         /// Gets or sets a value of file version.

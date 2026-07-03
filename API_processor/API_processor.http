@@ -1,4 +1,4 @@
-@API_processor_HostAddress = http://localhost:5058
+@API_processor_HostAddress = http://172.16.0.54:7000
 
 GET {{API_processor_HostAddress}}/weatherforecast/
 Accept: application/json
