@@ -16,7 +16,7 @@ namespace API_processor
             builder.Services.AddAuthorization();
 
             builder.Services.AddDbContext<VersionsContext>(options =>
-                options.UseSqlite("Data Source=WSVersions.db"));
+                options.UseSqlite("Data Source=C:\\microservices\\WS_driwer_reporter\\WSVersions.db"));
 
             var app = builder.Build();
 
