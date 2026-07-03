@@ -1,4 +1,5 @@
 using System.Text;
+using API_processor.Classes;
 using API_processor.Mappers;
 
 namespace API_processor
@@ -22,8 +23,6 @@ namespace API_processor
 
             app.MapPost("/add", async (WSwersionData rawData) =>
             {
-                Console.WriteLine(rawData);
-
                 var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
 
                 Directory.CreateDirectory(uploadDirectory);
@@ -42,12 +41,14 @@ namespace API_processor
                 {
                     await File.AppendAllTextAsync(filePath, tempString.ToString());
                 }
+                catch (Exception ex)
+                {
+                    Logger.AddLogAsync(DateTime.Now, ex.Message, rawData.ComputerName);
+                }
                 finally
                 {
                     _semaphore.Release();
                 }
-
-                Console.WriteLine("done");
             });
 
             app.Run();
