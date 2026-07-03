@@ -1,0 +1,1 @@
+System.Func`1[System.String];pc;Exception of type 'System.Exception' was thrown.03.07.2026 11:26:12;pc;Exception of type 'System.Exception' was thrown.
