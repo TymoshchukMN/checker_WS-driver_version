@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <None Remove="Check_WebSericeAndSendViaAPi.ps1" />
+    <None Remove="WSVersions.db" />
+    <None Remove="WSVersions.db-shm" />
+    <None Remove="WSVersions.db-wal" />
   </ItemGroup>
 
   <ItemGroup>

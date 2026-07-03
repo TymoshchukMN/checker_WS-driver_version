@@ -42,7 +42,7 @@ namespace API_processor
                     }
                     else
                     {
-                        pc.CkeckDate = rawData.CkeckDate;
+                        pc.CheckDate = rawData.CheckDate;
                         pc.FileVersion = rawData.FileVersion;
                         pc.IsFileExists = rawData.IsFileExists;
                     }

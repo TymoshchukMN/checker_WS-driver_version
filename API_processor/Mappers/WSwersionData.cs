@@ -23,6 +23,6 @@ namespace API_processor.Mappers
         /// <summary>
         /// Gets or sets a value of checking date.
         /// </summary>
-        public string? CkeckDate { get; set; }
+        public string? CheckDate { get; set; }
     }
 }
