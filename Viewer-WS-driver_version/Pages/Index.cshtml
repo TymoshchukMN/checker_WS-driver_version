@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/Viewer_WS_driver_version.styles.css" asp-append-version="true" />
 
-
+@{} 
 <h4 style="margin: 10px;">WS driver versions Dashboard</h4>
 <div style="margin: 10px;">
 
@@ -31,7 +31,14 @@
                     </select>
                 </th>
                 <th></th>
-                <th><input type="text" name="pcName" value="" /></th>
+                <th>
+                    <select>
+                        @foreach (var item in Model.WSwersionDatas.Select(x=>x.FileVersion).Distinct().Order())
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                </th>
             </tr>
             
         </thead>

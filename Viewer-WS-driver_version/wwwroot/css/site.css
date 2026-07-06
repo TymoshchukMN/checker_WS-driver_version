@@ -56,7 +56,7 @@ body {
         border-bottom: 1px solid #333;
         max-width: 300px;
         color: black;
-        text-align: left;
+        text-align: center;
     }
 
     .base-table tr:hover {
