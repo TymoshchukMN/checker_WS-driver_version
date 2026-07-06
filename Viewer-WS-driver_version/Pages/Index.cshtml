@@ -33,9 +33,9 @@
                 <th></th>
                 <th>
                     <select>
-                        @foreach (var item in Model.WSwersionDatas.Select(x=>x.FileVersion).Distinct().Order())
+                        @foreach (var item in Model.UniqueVersions)
                         {
-                            <option value="@item">@item</option>
+                            <option value="@item">@(item ?? "Не указана")</option>
                         }
                     </select>
                 </th>

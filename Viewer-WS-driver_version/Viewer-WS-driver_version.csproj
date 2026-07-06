@@ -8,16 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Development.zip" />
     <None Remove="WSVersions.db" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="bootstrap" Version="5.3.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.17" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.17">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <ProjectReference Include="..\..\DBProcessor\DBProcessor.csproj" />
   </ItemGroup>
 
 </Project>
