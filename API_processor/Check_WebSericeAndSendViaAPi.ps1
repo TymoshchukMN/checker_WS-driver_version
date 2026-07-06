@@ -11,7 +11,7 @@ using namespace System.Diagnostics;
 
 [string]$filePath = "C:\swsetup\Comfy_WS_Service\WS_Drivers.exe";
 [bool]$IsFileExists = $false;
-[string]$ckeckDate = [datetime]::Now.Date.ToString("dd.MM.yyyy");
+[string]$checkDate = [datetime]::Now.Date.ToString("dd.MM.yyyy");
 [string]$fileVersion = $null;
 
 if([File]::Exists($filePath))
@@ -27,7 +27,7 @@ $body = @{
     ComputerName =$env:COMPUTERNAME
     IsFileExists = $ІsFileWxists
     FileVersion = $FileVersion
-    CkeckDate = $ckeckDate
+    CheckDate = $ckeckDate
 } | ConvertTo-Json
 
-Invoke-RestMethod -Uri $uri -Method Post -Body $body -ContentType "application/json"
+Invoke-RestMethod -Uri $uri -Method Put -Body $body -ContentType "application/json"

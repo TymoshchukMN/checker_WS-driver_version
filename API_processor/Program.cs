@@ -5,7 +5,7 @@ namespace API_processor
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -17,16 +17,33 @@ namespace API_processor
 
             app.UseAuthorization();
 
+            await Processor.DBCkeck();
+
             app.MapPut("/add", static async (WSwersionData rawData) =>
             {
                 try
                 {
-                    Processor.AddData(rawData);
+                    await Processor.AddData(rawData);
                     return Results.Ok();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"{ex.Message}");
+                    return Results.Problem(ex.Message);
+                }
+            });
+
+            app.MapGet("/get", () =>
+            {
+                try
+                {
+                    var data = Processor.GetWSversions();
+
+                    return Results.Ok(data);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine();
                     return Results.Problem(ex.Message);
                 }
             });

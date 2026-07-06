@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_processor", "API_proces
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Viewer-WS-driver_version", "..\Viewer-WS-driver_version\Viewer-WS-driver_version.csproj", "{94B781CB-FB9C-47B2-BA11-5968607C3649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBProcessor", "..\..\DBProcessor\DBProcessor.csproj", "{EB878826-5F31-49F1-9105-60BBAC73B834}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionStorage", "..\..\DBProcessor\VersionStorage.csproj", "{EB878826-5F31-49F1-9105-60BBAC73B834}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

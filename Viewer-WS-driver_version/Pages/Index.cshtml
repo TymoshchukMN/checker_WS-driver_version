@@ -8,13 +8,13 @@
 <script type="importmap"></script>
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/Viewer_WS_driver_version.styles.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/js/site.js" asp-append-version="true" />
 
-@{} 
+
 <h4 style="margin: 10px;">WS driver versions Dashboard</h4>
 <div style="margin: 10px;">
 
-    <table class="base-table">
+    <table class="base-table" id="rep-table">
         <thead >
             <tr>
                 <th>PcName</th>
@@ -23,16 +23,16 @@
                 <th>fileVersion</th>
             </tr>
             <tr>
-                <th><input type="text" name="pcName" value="" /></th>
+                <th><input type="text" id="pc-name" name="pcName" value="" oninput="filterTable()" /></th>
                 <th>
-                    <select>
+                    <select id="existing" onchange="filterTable()">
                         <option value="true">true</option>
                         <option value="false">false</option>
                     </select>
                 </th>
                 <th></th>
                 <th>
-                    <select>
+                    <select id="version" onchange="filterTable()">
                         @foreach (var item in Model.UniqueVersions)
                         {
                             <option value="@item">@(item ?? "Не указана")</option>
@@ -55,3 +55,32 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function filterTable() {
+        const table = document.getElementById("rep-table");
+        const rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+        const existingfilter = document.getElementById("existing").value.toLowerCase();
+        const nameFilter = document.getElementById("pc-name").value.toLowerCase();
+        const versionFilter = document.getElementById("version").value.toLowerCase();
+
+        for (let row of rows)
+        {
+            const nameCell = row.cells[0]?.textContent.trim().toLowerCase();
+            const existsCell = row.cells[1]?.textContent.trim().toLowerCase();
+            const versionCell = row.cells[3]?.textContent.trim().toLowerCase();
+
+            const matchesName = !nameFilter || nameCell.includes(nameFilter);
+            const matchesExisting = !existingfilter || existsCell.includes(existingfilter);
+            const matchesVersion = !versionFilter || versionCell.includes(versionFilter);
+
+            if (matchesName && matchesVersion && matchesExisting) {
+                row.style.display = "";
+            }
+            else {
+                row.style.display = "none";
+            }
+        }
+    }
+</script>
