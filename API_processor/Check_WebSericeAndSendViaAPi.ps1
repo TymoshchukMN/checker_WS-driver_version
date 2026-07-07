@@ -11,7 +11,7 @@ using namespace System.Diagnostics;
 
 [string]$filePath = "C:\swsetup\Comfy_WS_Service\WS_Drivers.exe";
 [bool]$IsFileExists = $false;
-[string]$checkDate = [datetime]::Now.Date.ToString("dd.MM.yyyy");
+[string]$CheckDate = [datetime]::Now.Date.ToString("dd.MM.yyyy");
 [string]$fileVersion = $null;
 
 if([File]::Exists($filePath))
@@ -20,14 +20,23 @@ if([File]::Exists($filePath))
     $fileVersion = [FileVersionInfo]::GetVersionInfo($filePath).FileVersion;
 }
 
-
 $uri = "http://172.16.0.54:7000/add";
+
 
 $body = @{
     ComputerName =$env:COMPUTERNAME
-    IsFileExists = $ІsFileWxists
+    IsFileExists = $IsFileExists
     FileVersion = $FileVersion
-    CheckDate = $ckeckDate
+    CheckDate = $CheckDate
 } | ConvertTo-Json
+
+$rand = [System.Random]::new();
+
+[int16]$sleepSeconds = $rand.Next(0, 120);
+
+$body
+$sleepSeconds
+# робимо для того, щоб усі одразу не надсилали данні
+sleep -Seconds $sleepSeconds;
 
 Invoke-RestMethod -Uri $uri -Method Put -Body $body -ContentType "application/json"
