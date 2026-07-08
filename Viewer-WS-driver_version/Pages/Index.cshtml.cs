@@ -4,20 +4,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Viewer_WS_driver_version.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         public IEnumerable<WSwersionData> WSwersionDatas { get; set; } = [];
         public IEnumerable<string> UniqueVersions { get; set; } = [];
 
-        public async Task OnGet()
+        public void OnGet()
         {
-            const string Url = "http://172.16.0.54:7000/get";
-
             using HttpClient client = new ();
 
             try
             {
-                var data = await client.GetFromJsonAsync<List<WSwersionData>>(Url);
+                var data = client.GetFromJsonAsync<List<WSwersionData>>(Url).Result;
 
                 if (data!=null)
                 {

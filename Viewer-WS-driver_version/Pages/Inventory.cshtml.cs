@@ -1,12 +1,27 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using VersionStorage.Mappers;
 
 namespace Viewer_WS_driver_version.Pages
 {
-    public class InventoryModel : PageModel
+    public class InventoryModel : BasePageModel
     {
+        public IEnumerable<WScountByPC> WScountByPC { get; set; } = [];
         public void OnGet()
         {
+            using var client = new HttpClient();
+
+            try
+            {
+                var data = client.GetFromJsonAsync<List<WScountByPC>>(Url);
+
+                if (data.Result != null)
+                {
+                    WScountByPC = data.Result; 
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

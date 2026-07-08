@@ -48,6 +48,20 @@ namespace API_processor
                 }
             });
 
+            app.MapGet("/getPCbyVersions/{version}", async (string version) =>
+            {
+                try
+                {
+                    var data = await Processor.GetPCsByWSversion(version);
+
+                    return Results.Ok(data);
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem(ex.Message);
+                }
+            });
+
             app.Run();
         }
     }

@@ -2,3 +2,60 @@
 @model Viewer_WS_driver_version.Pages.InventoryModel
 @{
 }
+<div class="flex-container">
+    <div class="box">
+        <h5>Кількість пристроїв в розрізі версіі</h5>
+        <table class="base-table">
+            <thead>
+                <tr>
+                    <th>Версія</th>
+                    <th>Кількість</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.WScountByPC)
+                {
+                    <tr>
+                        <td>@item.WsVersion</td>
+                        <td>@item.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="box">
+        <h5>Somth else</h5>
+        <table class="base-table">
+            <thead>
+                <tr>
+                    <th>Версія</th>
+                    <th>Кількість</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.WScountByPC)
+                {
+                    <tr>
+                        <td>@item.WsVersion</td>
+                        <td>@item.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<style>
+.flex-container {
+        display: flex; /* Enacts the flex layout context */
+        gap: 16px;     /* Sets a clean space between the inner blocks */
+    }
+
+    .box {
+        flex: 1;       /* Instructs both blocks to share the width equally */
+        padding: 20px;
+       
+    }
+</style>
