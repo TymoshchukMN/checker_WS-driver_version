@@ -2,49 +2,61 @@
 @model Viewer_WS_driver_version.Pages.InventoryModel
 @{
 }
-<div class="flex-container">
-    <div class="box">
-        <h5>Кількість пристроїв в розрізі версіі</h5>
-        <table class="base-table">
-            <thead>
-                <tr>
-                    <th>Версія</th>
-                    <th>Кількість</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.WScountByPC)
-                {
-                    <tr>
-                        <td>@item.WsVersion</td>
-                        <td>@item.Count</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="box">
-        <h5>Somth else</h5>
-        <table class="base-table">
-            <thead>
-                <tr>
-                    <th>Версія</th>
-                    <th>Кількість</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.WScountByPC)
-                {
-                    <tr>
-                        <td>@item.WsVersion</td>
-                        <td>@item.Count</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+<div style="display: block;">
 
+    <div class="flex-container">
+        <div class="box">
+            <h5>Кількість пристроїв в розрізі версіі</h5>
+            <table class="base-table">
+                <thead>
+                    <tr>
+                        <th>Версія</th>
+                        <th>Кількість</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.WScountByPC)
+                    {
+                        <tr>
+                            <td>@item.FileVersion</td>
+                            <td>@item.Count</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="box">
+            <h5>Somth else</h5>
+            <table class="base-table">
+                <thead>
+                    <tr>
+                        <th>Версія</th>
+                        <th>Кількість пристроїв</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.WScountByPC)
+                    {
+                        <tr>
+                            <td>@item.FileVersion</td>
+                            <td>@item.Count</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <table class="base-table" id="tbl-version-by-pc">
+        <thead>
+            <tr>
+                <th>PcName</th>
+                <th>checkDate</th>
+                <th>fileVersion</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
 
 <style>

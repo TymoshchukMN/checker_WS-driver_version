@@ -15,7 +15,7 @@ namespace Viewer_WS_driver_version.Pages
 
             try
             {
-                var data = client.GetFromJsonAsync<List<WSwersionData>>(Url).Result;
+                var data = client.GetFromJsonAsync<List<WSwersionData>>($"{Url}get").Result;
 
                 if (data!=null)
                 {

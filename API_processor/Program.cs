@@ -48,6 +48,19 @@ namespace API_processor
                 }
             });
 
+            app.MapGet("/GetWSCountByPC", () =>
+            {
+                try
+                {
+                    var data = Processor.GetWSCountByPC().Result;
+                    return Results.Ok(data);
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem(ex.Message);
+                }
+            });
+
             app.MapGet("/getPCbyVersions/{version}", async (string version) =>
             {
                 try
