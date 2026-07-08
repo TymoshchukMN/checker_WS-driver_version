@@ -20,8 +20,8 @@
                 data.forEach((row) => {
                     const newRow = `<tr>
                                         <td>${row.computerName}</td>
-                                        <td>${row.fileVersion}</td>
                                         <td>${row.checkDate}</td>
+                                        <td>${row.fileVersion}</td>
                                     </tr>`;
 
                     tblBody.insertAdjacentHTML("beforeend", newRow);

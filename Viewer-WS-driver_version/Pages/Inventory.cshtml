@@ -21,14 +21,14 @@
                     {
                         <tr>
                             <td>@item.FileVersion</td>
-                            <td style="text-decoration: underline; color: aqua;" onclick="GetPCByFileVersion('@item.FileVersion')">@item.Count</td>
+                            <td class="customLink" onclick="GetPCByFileVersion('@item.FileVersion')">@item.Count</td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
         <div class="box">
-            <h5>Somth else</h5>
+          @*   <h5>Somth else</h5>
             <table class="base-table">
                 <thead>
                     <tr>
@@ -39,7 +39,7 @@
                 <tbody>
                     
                 </tbody>
-            </table>
+            </table> *@
         </div>
     </div>
     <table class="base-table" id="tbl-version-by-pc" style="display: none;">
@@ -65,5 +65,12 @@
         flex: 1;       /* Instructs both blocks to share the width equally */
         padding: 20px;
        
+    }
+.customLink{
+    color: blue;
+    text-decoration: underline;
+}
+    .customLink:hover{
+        color: red;
     }
 </style>
